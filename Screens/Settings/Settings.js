@@ -10,14 +10,12 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Switch,
-    Appearance,
     ScrollView,
-    useColorScheme,
+    useColorScheme
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import { styles } from "./styles.js";
-
 
 export default function Settings({ navigation, ...props }) {
     const [colorSchemeState, setColorSchemeState] = useState("");

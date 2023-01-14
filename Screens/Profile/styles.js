@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
     },
     postView: {
         top: hp(27),
+        height: hp(47),
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',

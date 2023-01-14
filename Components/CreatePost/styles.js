@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     pfpContainer: {
         width: hp(5),
         height: hp(5),
-        top: hp(1),
+        top: hp(2),
         left: hp(2),
         marginBottom: hp(2),
         borderRadius: hp(5),
@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
     seperateComp: {
         borderBottomColor: Color.BG1,
         borderBottomWidth: StyleSheet.hairlineWidth,
+        top: hp(1.5)
     },
     postText: {
         fontFamily: "GillSans-Light",
@@ -56,6 +57,7 @@ export const styles = StyleSheet.create({
         color: Color.TEXTONBG3,
     },
     seperateBottom: {
+        top: hp(10),
         paddingBottom: hp(2),
     },
     postImage: {
@@ -78,5 +80,35 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: hp(1.5),
         color: Color.GREYONBG3,
+        textAlign: 'center',
+    },
+    thumbsUpOpacity: {
+        width: hp(5),
+        height: hp(5),
+        top: hp(-4.20),
+        backgroundColor: Color.BG2,
+        borderRadius: hp(5),
+        left: hp(24),
+    },
+    thumbsUp: {
+        fontFamily: "GillSans-Light",
+        fontWeight: '500',
+        fontSize: hp(3.5),
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        top: hp(0.40),
+        color: Color.TEXTONBUTTON2,
+    },
+
+    percentileContainer: {
+        width: hp(5),
+        height: hp(),
+        top: hp(-4.20),
+        fontSize: hp(50),
+        fontFamily: "GillSans-Light",
+        fontWeight: '500',
+        textAlign: 'center',
+        justifyContent: 'center',
     }
 });

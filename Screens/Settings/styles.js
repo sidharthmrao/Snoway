@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         width: wp(100),
         height: hp(30),
         backgroundColor: Color.BG2,
-        // borderRadius: hp(5),
+        borderRadius: hp(5),
     },
     backButton: {
         width: hp(10),

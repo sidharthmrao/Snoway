@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-export async function getAllPosts(coords) {
-
-    console.log("HI")
+export async function draftVote(location_uuid, user_uuid, vote) {
 
     let returnVal = {
         "status": false
@@ -11,23 +9,21 @@ export async function getAllPosts(coords) {
     try {
         const response = await axios({
             method: 'POST',
-            url: "http://10.207.210.94:5001/get_locations_in_radius",
+            url: "http://10.207.210.94:5001/add_review",
             headers: {
                 'Content-Type': 'application/json',
             },
             data: {
-                "current_coords": {
-                    "latitude": coords.latitude,
-                    "longitude": coords.longitude,
-                },
-                "radius": "10"
-            }   
+                "location_uuid": location_uuid,
+                "user_uuid": user_uuid,
+                "review_rating": vote,
+                "review_description": ""
+            }
         })
 
         if (response.status == 200) {
             returnVal = {
                 "status": 200,
-                "data": response.data
             }
         } else {
             console.log(response.data)

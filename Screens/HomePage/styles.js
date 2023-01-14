@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
         width: wp(100),
         height: hp(12),
         paddingTop: hp(1),
-        borderRadius: hp(1),
+        borderRadius: hp(5),
     },
     profileBox: {
         width: hp(8),

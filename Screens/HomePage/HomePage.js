@@ -70,33 +70,34 @@ export default function HomePage({ navigation, ...props }) {
     }
 
     if (googleAPI) {
-        getRealLocationHandler();            
+        getRealLocationHandler("init");            
         googleAPI = false;
     }
 
     const onRefresh = () => {
-        setRefreshing(true);
+        googleAPI = true
+        checkIfDone = false;
         
         if (googleAPI) {
-            checkIfDone = false;
-            updateDatabase([])
-            getRealLocationHandler();            
+            getRealLocationHandler("refresh"); 
             googleAPI = false;
         }    
 
-        setTimeout(() => setRefreshing(false), 2000);
       };
 
-    async function getRealLocationHandler() {
-        while (JSON.stringify(database) === "[]" && checkIfDone == false) {
-            console.log(database);
+    async function getRealLocationHandler(paramVal) {
+
+        let loopVal = paramVal;
+
+        while (JSON.stringify(database) === "[]" || loopVal == "refresh" && checkIfDone == false) {
             console.log("Homepage line 75");
-            await getAllPostsReq();
+            await getAllPostsReq(loopVal);
+            loopVal = "init";
         }
         console.log("Done");
     }
 
-    async function getAllPostsReq() {
+    async function getAllPostsReq(paramVal) {
         const realLocation = await getLocation();
 
         let location_coords = {
@@ -124,8 +125,12 @@ export default function HomePage({ navigation, ...props }) {
                 date: "1/14/23",
                 location: response.data.locations[i].location_address,
                 description: response.data.locations[i].location_description,
-                image: response.data.locations[i].location_image,
+                image: response.data.locations[i].location_image
             });
+        }
+
+        if(paramVal == "refresh") {
+            updateDatabase([])          
         }
 
         await updateDatabase([...database]);
@@ -168,7 +173,7 @@ export default function HomePage({ navigation, ...props }) {
                     date: "1/14/23",
                     location: postResponse.data.location_address,
                     description: reviewText,
-                    image: image,
+                    image: image
                 },
                 ...database,
             ]);
@@ -296,6 +301,7 @@ export default function HomePage({ navigation, ...props }) {
                             return (
                                 <CreatePost
                                     index={itemData.item.index}
+                                    user_uuid={props.route.params.data.uuid}
                                     uuid={itemData.item.uuid}
                                     username={itemData.item.username}
                                     full_name={itemData.item.full_name}
