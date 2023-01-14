@@ -8,4 +8,20 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    reformatSnoway: {
+        top: hp(10),
+    },
+    emailText: {
+        backgroundColor: '#ffffff',
+        padding: hp(2),
+        borderRadius: hp(5),
+        width: hp(40),
+        fontFamily: "GillSans-Light",
+        fontWeight: '500',
+        fontSize: hp(2),
+        allignItems: 'left',
+        textAlign: 'left',
+        top: hp(-13.5),
+        left: hp(0),
+    }
 });

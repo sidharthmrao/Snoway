@@ -9,9 +9,21 @@ import LogOrSign from "../../Components/LogOrSign/LogOrSign.js";
 export default function HelloScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <LogOrSign message="Sign Up" navigation={navigation} />
-            <View style={styles.loginSpace} />
-            <LogOrSign message="Log In" navigation={navigation} />
+            <View style={styles.imageContainer}>
+                <Image
+                    source={require("../../Assets/png/sled_logo.png")}
+                    style={styles.imageSled}
+                ></Image>
+                <Image
+                    source={require("../../Assets/png/text_logo.png")}
+                    style={styles.imageTextLogo}
+                ></Image>
+            </View>
+            <View style={styles.topContainer}>
+                <LogOrSign message="Sign Up" navigation={navigation} />
+                <View style={styles.loginSpace} />
+                <LogOrSign message="Log In" navigation={navigation} />
+            </View>
         </View>
     );
 }

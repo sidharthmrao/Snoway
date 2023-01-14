@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View, Image, TextInput } from "react-native";
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import SignupHeader from "../../Components/SignupHeader/SignupHeader.js"
+import LoginBtn from "../../Components/LoginBtn/LoginBtn.js"
 
 import { styles } from "./styles.js"
 
@@ -15,11 +16,7 @@ export default function LoginPage({ navigation }) {
                 <View style={{marginTop: 20}} />
                 <TextInput placeholder="Password here..." style={styles.emailText}/>
             </View>
-            <View style={styles.submitBtnContainer}>
-                <TouchableOpacity style={styles.submitBtnStyle}>
-                    <Text style={styles.submitBtnTxt}>Log In</Text>
-                </TouchableOpacity>
-            </View>
+            <LoginBtn message="Log In"/>
         </View>
     )
 }
