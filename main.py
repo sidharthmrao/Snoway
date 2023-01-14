@@ -231,6 +231,7 @@ def get_location():
                    "location_type": location["location_type"],
                    "location_image": location["location_image"],
                    "location_reviews": location["location_reviews"],
+                   "location_review_average": location["location_review_average"],
                    "user_uuid": location["user_uuid"]
                }, 200
     else:
@@ -331,7 +332,7 @@ def get_location_reviews():
         return {
                    "status": "success",
                    "message": "Reviews found.",
-                   "reviews": reviews
+                   "reviews": reviews,
                }, 200
     else:
         return {
@@ -353,7 +354,13 @@ def get_user_reviews():
 
     reviews = user_controller.get_user_reviews(user_uuid)
 
-    if reviews:
+    if reviews == "User not found.":
+        return {
+                   "status": "failure",
+                   "message": "User not found."
+               }, 400
+
+    elif reviews or reviews == []:
         return {
                    "status": "success",
                    "message": "Reviews found.",
@@ -379,7 +386,13 @@ def get_user_locations():
 
     locations = user_controller.get_user_locations(user_uuid)
 
-    if locations:
+    if locations == "User not found.":
+        return {
+                   "status": "failure",
+                   "message": "User not found."
+               }, 400
+
+    elif locations or locations==[]:
         return {
                    "status": "success",
                    "message": "Locations found.",

@@ -88,8 +88,7 @@ class MongoController:
             return user
 
     ######## LOCATION ########
-    def add_location(self, location_coords, location_description, location_type, location_image,
-                     user_uuid):
+    def add_location(self, location_coords, location_description, location_type, location_image, user_uuid):
 
         try:
             address = self.gmap_controller.get_address(location_coords["latitude"], location_coords["longitude"])[0][
@@ -141,7 +140,7 @@ class MongoController:
 
         return location
 
-    def add_review(self, location_uuid: str, user_uuid: str, review_description: str, review_rating: str) -> object:
+    def add_review(self, location_uuid: str, user_uuid: str, review_description: str, review_rating: bool) -> object:
         review_uuid = str(uuid.uuid4())
 
         description = {
@@ -168,9 +167,23 @@ class MongoController:
             if self.reviews.find_one({"uuid": review})["user_uuid"] == user_uuid:
                 return "User already reviewed this location."
 
+        num_reviews = len(self.locations.find_one({"uuid": location_uuid}).get("location_reviews"))
+        current_rating = self.locations.find_one({"uuid": location_uuid}).get("location_review_average")
+        review_rating = 1 if review_rating else 0
+
+        if num_reviews == 0:
+            new_rating = review_rating
+        else:
+            new_rating = (current_rating * num_reviews + int(review_rating)) / num_reviews
+
         self.locations.update_one(
             {"uuid": location_uuid},
             {"$push": {"location_reviews": description["uuid"]}}
+        )
+
+        self.locations.update_one(
+            {"uuid": location_uuid},
+            {"$set": {"location_review_average": new_rating}}
         )
 
         self.users.update_one(
@@ -204,7 +217,6 @@ class MongoController:
                         "user_uuid": review["user_uuid"],
                         "review_description": review["review_description"],
                         "review_rating": review["review_rating"],
-                        "location_review_average": location["location_review_average"]
                     }
 
             return response
@@ -212,51 +224,49 @@ class MongoController:
             return None
 
     def get_user_reviews(self, user_uuid):
-        try:
-            user = self.users.find_one({"uuid": user_uuid})
-            review_uuid_list = user.get("reviews")
-            response = {}
-            for num, review_uuid in enumerate(review_uuid_list):
-                review = self.get_review(review_uuid)
+        user = self.users.find_one({"uuid": user_uuid})
+        if not user:
+            return "User not found."
 
-                if review:
-                    response[num] = {
-                        "uuid": review["uuid"],
-                        "location_uuid": review["location_uuid"],
-                        "user_uuid": review["user_uuid"],
-                        "review_description": review["review_description"],
-                        "location_review_average": review["location_review_average"],
-                    }
+        review_uuid_list = user.get("reviews")
+        response = []
+        for num, review_uuid in enumerate(review_uuid_list):
+            review = self.get_review(review_uuid)
 
-            return response
-        except Exception:
-            return None
+            if review:
+                response.append({
+                    "uuid": review["uuid"],
+                    "location_uuid": review["location_uuid"],
+                    "user_uuid": review["user_uuid"],
+                    "review_description": review["review_description"]
+                })
+
+        return response
 
     def get_user_locations(self, user_uuid):
-        try:
-            user = self.users.find_one({"uuid": user_uuid})
-            location_uuid_list = user.get("locations")
-            response = {}
-            for num, location_uuid in enumerate(location_uuid_list):
-                location = self.get_location(location_uuid)
+        user = self.users.find_one({"uuid": user_uuid})
+        if not user:
+            return "User not found."
 
-                if location:
-                    response[num] = {
-                        "uuid": location["uuid"],
-                        "location_coords": location["location_coords"],
-                        "location_address": location["location_address"],
-                        "location_name": location["location_name"],
-                        "location_description": location["location_description"],
-                        "location_type": location["location_type"],
-                        "location_image": location["location_image"],
-                        "user_uuid": location["user_uuid"],
-                        "location_reviews": location["location_reviews"],
-                        "location_review_average": location["location_review_average"]
-                    }
+        location_uuid_list = user.get("locations")
+        response = []
+        for num, location_uuid in enumerate(location_uuid_list):
+            location = self.get_location(location_uuid)
 
-            return response
-        except:
-            return None
+            if location:
+                response.append({
+                    "uuid": location["uuid"],
+                    "location_coords": location["location_coords"],
+                    "location_address": location["location_address"],
+                    "location_description": location["location_description"],
+                    "location_type": location["location_type"],
+                    "location_image": location["location_image"],
+                    "user_uuid": location["user_uuid"],
+                    "location_reviews": location["location_reviews"],
+                    "location_review_average": location["location_review_average"]
+                })
+
+        return response
 
     def get_locations_in_radius(self, current_coords, radius: str):  # radius in miles
         radius = float(radius)
