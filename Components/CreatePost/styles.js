@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         allignText: 'center',
         justifyContent: 'center',
-        top: wp(2.5),
+        top: wp(2.9),
     },
     formatUserName: {
         fontFamily: "GillSans-Light",
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         allignText: 'center',
         justifyContent: 'center',
-        top: hp(-1.5),
+        top: hp(-1),
         left: wp(34),
         width: wp(50),
     },
@@ -69,6 +69,6 @@ export const styles = StyleSheet.create({
         fontFamily: "GillSans-Light",
         fontWeight: '500',
         fontSize: hp(1.5),
-        color: '#88898c',
+        color: '#c6cad0',
     }
 });

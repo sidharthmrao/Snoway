@@ -31,10 +31,16 @@ export default function HomePage({navigation, ...props}) {
         }
     ]
 
+    let initials = props.route.params.data.full_name.split(" ")
+    initials = initials[0][0] + initials[1][0]
+
     return (
         <View style={styles.container}>
             <View style={styles.CoverText}>
                 <Text style={styles.snowSpot}>Snowspots Near You...</Text>
+                <TouchableOpacity style={styles.buttonPost}>
+                    <Text style={styles.postText}>Share Snowspot</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.postView}>
                 <FlatList
@@ -49,12 +55,25 @@ export default function HomePage({navigation, ...props}) {
                                 location={itemData.item.location}
                                 description={itemData.item.description}
                                 image={itemData.item.image}
+                                navigation={props.navigation}
                             />
                         );
                     }}
                     alwaysBounceVertical={false}
                     showsVerticalScrollIndicator={false}
                 />
+            </View>
+            <View style={styles.bottomBar}>
+                <TouchableOpacity>
+                    <View style={styles.profileBox}>
+                        <Text style={styles.profileBoxInitials}>{initials}</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style={styles.settingsBox}>
+                        <Text style={styles.gearEmoji}>⚙️</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     )
