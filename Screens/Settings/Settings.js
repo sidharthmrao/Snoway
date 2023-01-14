@@ -35,8 +35,29 @@ export default function Settings({ navigation, ...props }) {
                     </View>
                 </View>
             </View>
-            <View style={styles.list}>
-                
+            <View style={styles.aboutSection}>
+                <Text style={styles.aboutHeader}>About</Text>
+                <View style={styles.aboutList}>
+                    <Text style={styles.aboutListItem}>How to use</Text>
+                    <View style={styles.line}/>
+                    <Text style={styles.aboutListItem}>About the developers</Text>
+                    <View style={styles.line}/>
+                    <Text style={styles.aboutListItem}>Dark mode</Text>
+                </View>
+            </View>
+            <View style={styles.feedbackSection}>
+                <Text style={styles.feedbackHeader}>Feedback and Help</Text>
+                <View style={styles.feedbackList}>
+                    <Text style={styles.feedbackListItem}>FAQ</Text>
+                    <View style={styles.line}/>
+                    <Text style={styles.feedbackListItem}>Contact us</Text>
+                </View>
+            </View>
+            <View style={styles.imageContainer}>
+                <Image
+                    source={require("../../Assets/png/sled_logo.png")}
+                    style={styles.imageSled}
+                ></Image>
             </View>
         </View>
     );

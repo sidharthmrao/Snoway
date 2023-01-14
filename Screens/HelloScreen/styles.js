@@ -4,9 +4,17 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-nativ
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#B4D2E7',
+        backgroundColor: "#b4d2e7",
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    backgroundContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: hp(100),
     },
     imageContainer: {
         top: hp(0),
@@ -46,5 +54,8 @@ export const styles = StyleSheet.create({
         width: wp(100),
         alignSelf: "center",
         alignItems: "center",
+    },
+    backgroundSnow: {
+        height: hp(100),
     }
 });

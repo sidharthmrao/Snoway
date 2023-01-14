@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, TouchableOpacity, View, Image } from "react-native";
+import { Text, TouchableOpacity, View, Image, ImageBackground } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import { styles } from "./styles.js";
@@ -17,6 +17,12 @@ export default function HelloScreen({ navigation }) {
                 <Image
                     source={require("../../Assets/png/text_logo.png")}
                     style={styles.imageTextLogo}
+                ></Image>
+            </View>
+            <View style={styles.backgroundContainer}>
+                <Image
+                    source={require("../../Assets/png/snow02.gif")}
+                    style={styles.backgroundSnow}
                 ></Image>
             </View>
             <View style={styles.topContainer}>

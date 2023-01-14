@@ -13,7 +13,14 @@ export default function CreatePost({ navigation, ...props }) {
         <TouchableWithoutFeedback>
             <View>
                 <View style={styles.container}>
-                    <TouchableOpacity style={styles.pfpContainer}>
+                    <TouchableOpacity
+                        style={styles.pfpContainer}
+                        onPress={() => {
+                            navigation.navigate("profile", {
+                                data: props.username,
+                            });
+                        }}
+                    >
                         <Text style={styles.pfpInitials}>{props.initials}</Text>
                         <Text style={styles.formatUserName}>
                             {props.username}
