@@ -285,3 +285,79 @@ def get_review():
                    "status": "failure",
                    "message": "Review not found."
                }, 401
+
+
+@app.route("/get_location_reviews", methods=["POST"])
+def get_location_reviews():
+    args = request.get_json()
+    try:
+        location_uuid = args["uuid"]
+    except Exception as e:
+        return {
+                   "status": "failure",
+                   "message": "Missing required arguments."
+               }, 400
+
+    reviews = user_controller.get_location_reviews(location_uuid)
+
+    if reviews:
+        return {
+                   "status": "success",
+                   "message": "Reviews found.",
+                   "reviews": reviews
+               }, 200
+    else:
+        return {
+                   "status": "failure",
+                   "message": "Fatal error."
+               }, 401
+
+@app.route("/get_user_reviews", methods=["POST"])
+def get_user_reviews():
+    args = request.get_json()
+    try:
+        user_uuid = args["uuid"]
+    except Exception as e:
+        return {
+                   "status": "failure",
+                   "message": "Missing required arguments."
+               }, 400
+
+    reviews = user_controller.get_user_reviews(user_uuid)
+
+    if reviews:
+        return {
+                   "status": "success",
+                   "message": "Reviews found.",
+                   "reviews": reviews
+               }, 200
+    else:
+        return {
+                   "status": "failure",
+                   "message": "Fatal error."
+               }, 401
+
+@app.route("/get_user_locations", methods=["POST"])
+def get_user_locations():
+    args = request.get_json()
+    try:
+        user_uuid = args["uuid"]
+    except Exception as e:
+        return {
+                   "status": "failure",
+                   "message": "Missing required arguments."
+               }, 400
+
+    locations = user_controller.get_user_locations(user_uuid)
+
+    if locations:
+        return {
+                   "status": "success",
+                   "message": "Locations found.",
+                   "locations": locations
+               }, 200
+    else:
+        return {
+                   "status": "failure",
+                   "message": "Fatal error."
+               }, 401

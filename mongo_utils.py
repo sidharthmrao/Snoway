@@ -1,5 +1,6 @@
 import pymongo
 import uuid
+from flask import json
 
 
 class MongoController:
@@ -168,3 +169,78 @@ class MongoController:
         )
 
         return review
+
+    def get_location_reviews(self, location_uuid):
+        try:
+            location = self.locations.find_one({"uuid": location_uuid})
+            review_uuid_list = location.get("location_reviews")
+            response = {}
+            for num, review_uuid in enumerate(review_uuid_list):
+                review = self.get_review(review_uuid)
+                parsed_review = {
+                    "uuid": review["uuid"],
+                    "location_uuid": review["location_uuid"],
+                    "user_uuid": review["user_uuid"],
+                    "review_description": review["review_description"],
+                    "review_rating": review["review_rating"],
+                    "picture": review["picture"]
+                }
+                if review:
+                    response[num] = parsed_review
+                else:
+                    return None
+
+            return response
+        except:
+            return None
+
+    def get_user_reviews(self, user_uuid):
+        try:
+            user = self.users.find_one({"uuid": user_uuid})
+            review_uuid_list = user.get("reviews")
+            response = {}
+            for num, review_uuid in enumerate(review_uuid_list):
+                review = self.get_review(review_uuid)
+                parsed_review = {
+                    "uuid": review["uuid"],
+                    "location_uuid": review["location_uuid"],
+                    "user_uuid": review["user_uuid"],
+                    "review_description": review["review_description"],
+                    "review_rating": review["review_rating"],
+                    "picture": review["picture"]
+                }
+                if review:
+                    response[num] = parsed_review
+                else:
+                    return None
+
+            return response
+        except:
+            return None
+
+    def get_user_locations(self, user_uuid):
+        try:
+            user = self.users.find_one({"uuid": user_uuid})
+            location_uuid_list = user.get("locations")
+            response = {}
+            for num, location_uuid in enumerate(location_uuid_list):
+                location = self.get_location(location_uuid)
+                parsed_location = {
+                    "uuid": location["uuid"],
+                    "location_coords": location["location_coords"],
+                    "location_name": location["location_name"],
+                    "location_description": location["location_description"],
+                    "location_type": location["location_type"],
+                    "location_image": location["location_image"],
+                    "user_uuid": location["user_uuid"],
+                    "location_reviews": location["location_reviews"]
+                }
+                if location:
+                    response[num] = parsed_location
+                else:
+                    return None
+
+            return response
+        except:
+            return None
+
