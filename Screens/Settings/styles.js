@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     aboutSection: {
         top: hp(-8),
         width: wp(90),
-        height: hp(40),
+        height: hp(40)
     },
     aboutHeader: {
         fontFamily: "GillSans-Light",
@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
         fontSize: hp(4),
         top: hp(1),
         left: hp(2),
-        color: "black",
+        color: Color.TEXTONBG1,
         alignSelf: 'left',
     },
     feedbackList: {
@@ -126,5 +126,12 @@ export const styles = StyleSheet.create({
     imageSled: {
         width: wp(40),
         height: wp(22)
+    },
+    switch: {
+        top: hp(-7.7),
+        left: wp(63)
+    },
+    adjustScroll: {
+        marginTop: hp(-5),
     }
 });

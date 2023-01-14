@@ -9,6 +9,7 @@ import {
     Modal,
     TouchableWithoutFeedback,
     Keyboard,
+    RefreshControl
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import * as ImagePicker from "expo-image-picker"; // not react-image-picker
@@ -43,6 +44,9 @@ export default function HomePage({ navigation, ...props }) {
     let [reviewText, updateReviewText] = useState("");
     const [database, updateDatabase] = useState([]);
     const [scrollElement, updateScrollElement] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
+
+    console.log(props.route.params.data);
 
     let initials = props.route.params.data.full_name.split(" ");
     initials = initials[0][0] + initials[1][0];
@@ -66,9 +70,22 @@ export default function HomePage({ navigation, ...props }) {
     }
 
     if (googleAPI) {
-        getRealLocationHandler();
+        getRealLocationHandler();            
         googleAPI = false;
     }
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        
+        if (googleAPI) {
+            checkIfDone = false;
+            updateDatabase([])
+            getRealLocationHandler();            
+            googleAPI = false;
+        }    
+
+        setTimeout(() => setRefreshing(false), 2000);
+      };
 
     async function getRealLocationHandler() {
         while (JSON.stringify(database) === "[]" && checkIfDone == false) {
@@ -101,7 +118,7 @@ export default function HomePage({ navigation, ...props }) {
             database.unshift({
                 index: i,
                 uuid: getUUID,
-                full_name:responseUUID.data.full_name,
+                full_name: responseUUID.data.full_name,
                 username: responseUUID.data.username,
                 initials: initialsVal2,
                 date: "1/14/23",
@@ -272,6 +289,9 @@ export default function HomePage({ navigation, ...props }) {
                 <View style={styles.postView}>
                     <FlatList
                         data={database}
+                        refreshControl={
+                            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                        }
                         renderItem={(itemData) => {
                             return (
                                 <CreatePost

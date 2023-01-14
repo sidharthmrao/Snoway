@@ -12,6 +12,7 @@ export default function LoginBtn({ navigation, ...props }) {
     }
 
     async function actualLoginPageHandler() {
+        
         data_res = await loginReq(props.email, props.password);
 
         if (data_res.status) {

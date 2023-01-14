@@ -8,7 +8,7 @@ import {
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
     Keyboard,
-    FlatList,
+    FlatList
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
@@ -21,10 +21,28 @@ import { styles } from "./styles.js";
 export default function Profile({ navigation, ...props }) {
     let [database, updateDatabase] = useState([]);
 
-    console.log(props.route.params.data);
-
     let uuid = props.route.params.data.uuid;
     let checkIfDone = false;
+
+    let backSelector;
+
+    if(props.route.params.data.homeProps != undefined) {
+        backSelector = (
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("homepage", {
+                data: props.route.params.data.homeProps
+            })}>
+                <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+        )
+    } else {
+        backSelector = (
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("homepage", {
+                data: props.route.params.data
+            })}>
+                <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+        )
+    }
 
     if(checkIfDone == false && database.length == 0) {
         updateDatabaseClick();
@@ -97,11 +115,7 @@ export default function Profile({ navigation, ...props }) {
                     />
                 </View>
             </View>
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("homepage", {
-                data: props.route.params.homeProps
-            })}>
-                <Text style={styles.buttonText}>Back</Text>
-            </TouchableOpacity>
+            {backSelector}
         </View>
     );
 }
