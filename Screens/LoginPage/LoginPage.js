@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Text, TouchableOpacity, View, Image, TextInput } from "react-native";
+import {
+    Text,
+    TouchableOpacity,
+    View,
+    Image,
+    TextInput,
+    KeyboardAvoidingView,
+} from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import SignupHeader from "../../Components/SignupHeader/SignupHeader.js";
@@ -20,29 +27,35 @@ export default function LoginPage({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <SignupHeader message="login" />
-            <View style={styles.formInputEmail}>
-            <TextInput
-                placeholder="Email here..."
-                style={styles.emailText}
-                value={emailVal}
-                onChangeText={updateEmailComp}
-                autoCorrect={false}
-                autoCapitalize='none'
-            />
-            <View style={{ marginTop: 20 }} />
-            <TextInput
-                placeholder="Password here..."
-                style={styles.emailText}
-                value={passwordVal}
-                onChangeText={updatePassComp}
-                secureTextEntry={true}
-                autoCorrect={false}
-                autoCapitalize='none'
-            />
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
+            <View style={styles.container}>
+                <SignupHeader message="login" />
+                <View style={styles.formInputEmail}>
+                    <TextInput
+                        placeholder="Email here..."
+                        style={styles.emailText}
+                        value={emailVal}
+                        onChangeText={updateEmailComp}
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                    />
+                    <View style={{ marginTop: 20 }} />
+                    <TextInput
+                        placeholder="Password here..."
+                        style={styles.emailText}
+                        value={passwordVal}
+                        onChangeText={updatePassComp}
+                        secureTextEntry={true}
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                    />
+                </View>
+                <LoginBtn
+                    message="Log In"
+                    email={emailVal}
+                    password={passwordVal}
+                />
             </View>
-            <LoginBtn message="Log In" email={emailVal} password={passwordVal} />
-        </View>
+        </KeyboardAvoidingView>
     );
 }
