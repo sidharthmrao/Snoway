@@ -1,8 +1,10 @@
 from flask import Flask, request
 from mongo_utils import *
+from gmap_utils import *
 
 app = Flask(__name__)
-user_controller = MongoController()
+gmap_controller = GmapController()
+user_controller = MongoController(gmap_controller)
 
 
 @app.route("/login", methods=["POST"])
@@ -72,18 +74,18 @@ def sign_up():
                    }, 400
         else:
             return {
-                   "status": "success",
-                   "message": "User found.",
-                   "uuid": user_resp["uuid"],
-                   "username": user_resp["username"],
-                   "full_name": user_resp["full_name"],
-                   "email": user_resp["email"],
-                   "bio": user_resp["bio"],
-                   "city": user_resp["city"],
-                   "reviews": user_resp["reviews"],
-                   "locations": user_resp["locations"],
-                   "picture": user_resp["picture"]
-               }, 200
+                       "status": "success",
+                       "message": "User found.",
+                       "uuid": user_resp["uuid"],
+                       "username": user_resp["username"],
+                       "full_name": user_resp["full_name"],
+                       "email": user_resp["email"],
+                       "bio": user_resp["bio"],
+                       "city": user_resp["city"],
+                       "reviews": user_resp["reviews"],
+                       "locations": user_resp["locations"],
+                       "picture": user_resp["picture"]
+                   }, 200
 
     except Exception as e:
         return {
@@ -164,6 +166,7 @@ def add_location():
         location_type = args["location_type"]
         location_image = args["location_image"]
         user_uuid = args["user_uuid"]
+
     except Exception as e:
         return {
                    "status": "failure",
@@ -173,16 +176,23 @@ def add_location():
     location_response = user_controller.add_location(location_coords, location_description,
                                                      location_type, location_image, user_uuid)
 
-    if location_response == "Location already exists.":
+    if location_response[0] == "Location already exists.":
         return {
                    "status": "failure",
-                   "message": "Location already exists."
+                   "message": "Location already exists.",
+                   "uuid": location_response[1]
                }, 400
 
-    if location_response == "User not found.":
+    elif location_response == "User not found.":
         return {
                    "status": "failure",
                    "message": "User not found."
+               }, 400
+
+    elif location_response == "Invalid coordinates.":
+        return {
+                   "status": "failure",
+                   "message": "Invalid coordinates."
                }, 400
 
     elif location_response:
@@ -217,6 +227,7 @@ def get_location():
                    "message": "Location found.",
                    "uuid": location["uuid"],
                    "location_coords": location["location_coords"],
+                   "location_address": location["location_address"],
                    "location_description": location["location_description"],
                    "location_type": location["location_type"],
                    "location_image": location["location_image"],

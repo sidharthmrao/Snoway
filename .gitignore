@@ -1,4 +1,4 @@
-env.py
+env/*
 node_modules/
 .expo/
 dist/

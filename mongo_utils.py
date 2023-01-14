@@ -4,9 +4,10 @@ from flask import json
 
 
 class MongoController:
-    def __init__(self):
+    def __init__(self, gmap_controller):
         self.client = pymongo.MongoClient(
             "mongodb+srv://snowday:snowday@snowday.nktu0z5.mongodb.net/?retryWrites=true&w=majority")
+        self.gmap_controller = gmap_controller
         self.db = self.client["SnowDay"]
         self.users = self.db["Users"]
         self.locations = self.db["Locations"]
@@ -87,12 +88,21 @@ class MongoController:
     ######## LOCATION ########
     def add_location(self, location_coords, location_description, location_type, location_image,
                      user_uuid):
-        location = self.locations.find_one({"location_coords": {
-            "longitude": location_coords["longitude"],
-            "latitude": location_coords["latitude"]
-        }})
+
+        try:
+            address = self.gmap_controller.get_address(location_coords["latitude"], location_coords["longitude"])[0][
+                "formatted_address"]
+            if address is None:
+                return "Invalid coordinates."
+        except:
+            return "Invalid coordinates."
+
+        location = self.locations.find_one({
+            "location_address": address,
+        })
+
         if location:
-            return "Location already exists."
+            return "Location already exists.", location.get("uuid")
 
         user = self.users.find_one({"uuid": user_uuid})
 
@@ -105,6 +115,7 @@ class MongoController:
             {
                 "uuid": location_uuid,
                 "location_coords": location_coords,
+                "location_address": address,
                 "location_description": location_description,
                 "location_type": location_type,
                 "location_image": location_image,
@@ -229,6 +240,7 @@ class MongoController:
                     response[num] = {
                         "uuid": location["uuid"],
                         "location_coords": location["location_coords"],
+                        "location_address": location["location_address"],
                         "location_name": location["location_name"],
                         "location_description": location["location_description"],
                         "location_type": location["location_type"],
@@ -241,30 +253,35 @@ class MongoController:
         except:
             return None
 
-    def get_locations_in_radius(self, current_coords, radius):
-        try:
-            current_coords = {
-                "longitude": float(current_coords["longitude"]),
-                "latitude": float(current_coords["latitude"])
-            }
+    def get_locations_in_radius(self, current_coords, radius: str):  # radius in miles
+        current_coords = {
+            "longitude": float(current_coords["longitude"]),
+            "latitude": float(current_coords["latitude"])
+        }
 
-            locations = self.locations.find()
-            response = {}
+        current_address = \
+            self.gmap_controller.get_address(current_coords["latitude"], current_coords["longitude"])[0][
+                "formatted_address"]
 
-            for num, location in enumerate(locations):
-                if location:
-                    response[num] = {
+        locations = self.locations.find()
+        response = []
+
+        for num, location in enumerate(locations):
+            if location:
+                location_distance_matrix = self.gmap_controller.within_radius(current_address,
+                                                                              location.get("location_address"),
+                                                                              float(radius))
+                if location_distance_matrix:
+                    response.append({
                         "uuid": location["uuid"],
                         "location_coords": location["location_coords"],
-                        "location_description": location["location_description"],
+                        "location_address": location["location_address"],
                         "location_type": location["location_type"],
                         "location_image": location["location_image"],
                         "user_uuid": location["user_uuid"],
                         "location_reviews": location["location_reviews"],
-                        "travel_distance": 1000,
-                        "travel_time": 1000
-                    }
+                        "travel_time": location_distance_matrix["duration"],
+                        "travel_distance": location_distance_matrix["distance"],
+                    })
 
-            return response
-        except:
-            return None
+        return response if response else None
