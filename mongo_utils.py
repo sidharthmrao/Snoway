@@ -254,7 +254,9 @@ class MongoController:
                         "location_type": location["location_type"],
                         "location_image": location["location_image"],
                         "user_uuid": location["user_uuid"],
-                        "location_reviews": location["location_reviews"]
+                        "location_reviews": location["location_reviews"],
+                        "distance": 1000,
+                        "time": 1000
                     }
 
             return response
