@@ -7,6 +7,8 @@ import { styles } from "./styles.js";
 
 export default function LoginBtn({ navigation, ...props }) {
 
+    let data_res;
+
     function loginPageHandler() {
         actualLoginPageHandler();
     }
@@ -20,7 +22,7 @@ export default function LoginBtn({ navigation, ...props }) {
     }
 
     async function actualsignupPageHandler() {
-        data_res = await getTeams(props.name, props.email, props.username, props.password, props.city)
+        data_res = await signupReq(props.name, props.email, props.username, props.password, props.city)
     }
 
     if(props.message == "Sign Up") {
@@ -36,8 +38,8 @@ export default function LoginBtn({ navigation, ...props }) {
     } else {
 
         return (
-            <View style={styles.submitBtnContainer} onPress={loginPageHandler}>
-                <TouchableOpacity style={styles.submitBtnStyle}>
+            <View style={styles.submitBtnContainer}>
+                <TouchableOpacity style={styles.submitBtnStyle} onPress={loginPageHandler}>
                     <Text style={styles.submitBtnTxt}>{props.message}</Text>
                 </TouchableOpacity>
             </View>

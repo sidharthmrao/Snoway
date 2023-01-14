@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     submitBtnTxt: {
-        color: '#c4c2c2',
+        color: '#ffffff',
         fontFamily: "GillSans-Light",
         fontWeight: '500',
         fontSize: hp(2),
