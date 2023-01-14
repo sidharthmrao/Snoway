@@ -392,7 +392,7 @@ def get_user_locations():
                    "message": "User not found."
                }, 400
 
-    elif locations or locations==[]:
+    elif locations or locations == []:
         return {
                    "status": "success",
                    "message": "Locations found.",
@@ -422,11 +422,11 @@ def get_locations_in_radius():
 
     locations = user_controller.get_locations_in_radius(current_coords, radius)
 
-    if locations:
+    if locations or locations == []:
         return {
                    "status": "success",
                    "message": "Locations found.",
-                   "locations": locations
+                   "locations": sorted(locations, key=lambda k: float(k['travel_distance']))
                }, 200
     else:
         return {
