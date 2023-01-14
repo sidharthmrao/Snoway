@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export async function loginReq(email, password) {
 
-    let returnVal = false;
+    let returnVal = {
+        "status": false
+    };
 
     try {
         const response = await axios({
@@ -18,15 +20,15 @@ export async function loginReq(email, password) {
         })
 
         if (response.status == 200) {
-            console.log(response.data)
-            alert("Logged in successfully");
-            returnVal = response.data;
+            returnVal = {
+                "status": true,
+                "data": response.data
+            }
         } else {
             alert("Error logging in")
         }
 
     } catch (error) {
-        console.log(error)
         alert("Error logging in")
     }
 

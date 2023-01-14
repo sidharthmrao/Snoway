@@ -97,6 +97,7 @@ export default function SignupPage({ navigation }) {
                     username={usernameVal}
                     password={passwordVal}
                     city={cityVal}
+                    navigation={navigation}
                 />
             </View>
         </KeyboardAvoidingView>

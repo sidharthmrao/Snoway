@@ -54,6 +54,7 @@ export default function LoginPage({ navigation }) {
                     message="Log In"
                     email={emailVal}
                     password={passwordVal}
+                    navigation={navigation}
                 />
             </View>
         </KeyboardAvoidingView>

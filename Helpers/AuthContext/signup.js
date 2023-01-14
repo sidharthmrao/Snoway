@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export async function signupReq(name, email, username, password, city) {
 
-    let returnVal = false;
+    let returnVal = {
+        "status": false
+    };
 
     try {
         const response = await axios({
@@ -21,15 +23,16 @@ export async function signupReq(name, email, username, password, city) {
         })
 
         if (response.status == 200) {
-            console.log(response.data)
             alert("Signed up successfully");
-            returnVal = response.data;
+            returnVal = {
+                "status": true,
+                "data": response.data
+            }
         } else {
             alert("Error signing up")
         }
 
     } catch (error) {
-        console.log(error)
         alert("Error logging in")
     }
 
