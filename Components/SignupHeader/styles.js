@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     container2: {
-        backgroundColor: '#B4D2E7',
+        backgroundColor: Color.BG1,
         alignItems: 'center',
         justifyContent: 'center',
     },
     welcomeText: {
-        color: '#79a3f0',
+        color: Color.TEXTONBG1,
         fontFamily: "GillSans-Light",
         fontSize: hp(4),
         left: hp(6),

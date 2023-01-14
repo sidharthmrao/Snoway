@@ -37,21 +37,21 @@ export default function Settings({ navigation, ...props }) {
             </View>
             <View style={styles.aboutSection}>
                 <Text style={styles.aboutHeader}>About</Text>
-                <View style={styles.aboutList}>
+                <TouchableOpacity style={styles.aboutList}>
                     <Text style={styles.aboutListItem}>How to use</Text>
                     <View style={styles.line}/>
                     <Text style={styles.aboutListItem}>About the developers</Text>
                     <View style={styles.line}/>
                     <Text style={styles.aboutListItem}>Dark mode</Text>
-                </View>
+                </TouchableOpacity>
             </View>
             <View style={styles.feedbackSection}>
                 <Text style={styles.feedbackHeader}>Feedback and Help</Text>
-                <View style={styles.feedbackList}>
-                    <Text style={styles.feedbackListItem}>FAQ</Text>
+                <TouchableOpacity style={styles.feedbackList}>
+                    <Text style={styles.feedbackListItem}>FA</Text>
                     <View style={styles.line}/>
                     <Text style={styles.feedbackListItem}>Contact us</Text>
-                </View>
+                </TouchableOpacity>
             </View>
             <View style={styles.imageContainer}>
                 <Image

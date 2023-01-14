@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#B4D2E7',
+        backgroundColor: Color.BG1,
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'center',
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
         top: hp(-10),
         width: wp(100),
         height: hp(30),
-        backgroundColor: '#407eea',
+        backgroundColor: Color.BG2,
         // borderRadius: hp(5),
     },
     backButton: {
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
         allignText: 'center',
         justifyContent: 'center',
         top: hp(1.7),
-        color: "#ffffff",
+        color: Color.WHITE,
     },
     settingsTextBox: {
         width: wp(65),
@@ -41,7 +42,7 @@ export const styles = StyleSheet.create({
         fontSize: hp(4),
         top: hp(13),
         left: hp(2),
-        color: "#ffffff",
+        color: Color.WHITE,
         alignSelf: 'left',
         allignText: 'center',
         justifyContent: 'center',
@@ -61,14 +62,14 @@ export const styles = StyleSheet.create({
         fontSize: hp(4),
         top: hp(1),
         left: hp(2),
-        color: "black",
+        color: Color.TEXTONBG1,
         alignSelf: 'left',
     },
     aboutList: {
         top: hp(3),
         width: wp(90),
         height: hp(25.5),
-        backgroundColor: "#ffffff",
+        backgroundColor: Color.BG3,
         alignSelf: 'center',
         allignText: 'center',
         padding: hp(3),
@@ -99,7 +100,7 @@ export const styles = StyleSheet.create({
         top: hp(3),
         width: wp(90),
         height: hp(17.7),
-        backgroundColor: "#ffffff",
+        backgroundColor: Color.BG3,
         alignSelf: 'center',
         allignText: 'center',
         padding: hp(3),
@@ -116,7 +117,7 @@ export const styles = StyleSheet.create({
         top: hp(-2.4),
         left: hp(-5),
         width: wp(95),
-        borderBottomColor: '#B4D2E7',
+        borderBottomColor: Color.BG1,
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     imageContainer: {

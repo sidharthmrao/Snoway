@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#B4D2E7',
+        backgroundColor: Color.BG1,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -16,12 +17,12 @@ export const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#407eea',
+        backgroundColor: Color.BG2,
         marginBottom: hp(-3),
     },
     snowSpot: {
         top: hp(4),
-        color: '#B4D2E7',
+        color: Color.TEXTONBG2,
         fontFamily: "GillSans-Light",
         fontSize: hp(3),
         fontWeight: '500',
@@ -34,20 +35,20 @@ export const styles = StyleSheet.create({
     buttonPost: {
         marginTop: hp(2),
         top: hp(2.5),
-        backgroundColor: '#ffffff',
+        backgroundColor: Color.BUTTON1,
         padding: hp(1),
         width: wp(43),
         borderRadius: hp(5),
     },
     postText: {
-        color: '#023CAA',
+        color: Color.TEXTONBUTTON1,
         fontFamily: "GillSans-Light",
         fontSize: hp(2.25),
         textAlign: 'center',
         fontWeight: '500'
     },
     bottomBar: {
-        backgroundColor: '#407eea',
+        backgroundColor: Color.BG2,
         width: wp(100),
         height: hp(12),
         paddingTop: hp(1),
@@ -60,7 +61,7 @@ export const styles = StyleSheet.create({
         left: hp(3),
         marginBottom: hp(2),
         borderRadius: hp(5),
-        backgroundColor: '#B4D2E7',
+        backgroundColor: Color.BUTTON1,
     },
     profileBoxInitials: {
         fontFamily: "GillSans-Light",
@@ -78,7 +79,7 @@ export const styles = StyleSheet.create({
         left: hp(35),
         marginBottom: hp(2),
         borderRadius: hp(5),
-        backgroundColor: '#B4D2E7',
+        backgroundColor: Color.BUTTON1,
     },
     gearEmoji: {
         fontSize: hp(5),
@@ -95,7 +96,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         top: hp(22.5),
         borderRadius: 10,
-        backgroundColor: '#759ee5',
+        backgroundColor: Color.BUTTON2,
     },
     uploadImage: {
         alignContent: 'center',
@@ -104,13 +105,13 @@ export const styles = StyleSheet.create({
         left: hp(1),
         marginTop: hp(2),
         top: hp(24),
-        backgroundColor: '#ffffff',
+        backgroundColor: Color.BUTTON1,
         padding: hp(2.5),
         width: wp(35),
         borderRadius: hp(5),
     },
     uploadText: {
-        color: '#023CAA',
+        color: Color.TEXTONBUTTON1,
         fontFamily: "GillSans-Light",
         fontSize: hp(1.8),
         textAlign: 'center',
@@ -123,7 +124,7 @@ export const styles = StyleSheet.create({
         left: hp(22),
         marginTop: hp(2),
         top: hp(15),
-        backgroundColor: '#ffffff',
+        backgroundColor: Color.BUTTON1,
         padding: hp(2.5),
         width: wp(35),
         borderRadius: hp(5),
@@ -149,7 +150,7 @@ export const styles = StyleSheet.create({
     },
     reviewTextInput: {
         lineHeight: hp(2),
-        backgroundColor: '#ffffff',
+        backgroundColor: Color.BUTTON1,
         height: hp(15),
         width: hp(37.5),
         left: hp(1.25),
@@ -169,7 +170,7 @@ export const styles = StyleSheet.create({
         borderRadius: hp(5),
         marginBottom: hp(-15),
         marginVertical: hp(1),
-        backgroundColor: '#407eea',
+        backgroundColor: Color.BG2,
     },
     scaleInitials: {
         fontFamily: "GillSans-Light",
@@ -179,7 +180,7 @@ export const styles = StyleSheet.create({
         allignText: 'center',
         justifyContent: 'center',
         top: hp(1.5),
-        color : '#ffffff',
+        color : Color.WHITE,
     },
     scaleUsername: {
         fontFamily: "GillSans-Light",
@@ -193,7 +194,7 @@ export const styles = StyleSheet.create({
         left: hp(14),
     },
     seperateComp: {
-        borderBottomColor: 'black',
+        borderBottomColor: Color.BG1,
         borderBottomWidth: StyleSheet.hairlineWidth,
         top: hp(10),
     },

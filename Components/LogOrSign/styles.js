@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     signUp: {
-        backgroundColor: '#F8F8F8',
+        backgroundColor: Color.BUTTON1,
         borderRadius: hp(5),
         width: "50%",
         padding: hp(2),
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
         top: hp(25),
     },
     signUpText: {
-        color: '#023CAA',
+        color: Color.TEXTONBUTTON1,
         fontFamily: "AppleSDGothicNeo-Regular",
         fontSize: hp(3),
         fontWeight: '500'

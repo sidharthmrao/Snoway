@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     container: {
@@ -69,6 +70,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         allignText: 'center',
         top: hp(4),
+        paddingHorizontal: hp(1.25),
     },
     confirmAddy: {
         fontFamily: "GillSans-Light",

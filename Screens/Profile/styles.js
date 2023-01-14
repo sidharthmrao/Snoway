@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     container: {
@@ -11,9 +12,14 @@ export const styles = StyleSheet.create({
     upperContainerWhite: {
         backgroundColor: '#ffffff',
         width: wp(100),
-        height: hp(80),
-        top: hp(-20),
+        height: hp(90),
+        top: hp(-18),
         borderRadius: hp(5),
+    },
+    seperateComp: {
+        borderBottomColor: 'black',
+        borderBottomWidth: hp(1),
+        top: hp(23)
     },
     usernameText: {
         color: '#023CAA',
@@ -22,9 +28,8 @@ export const styles = StyleSheet.create({
         fontSize: hp(3),
         top: hp(20),
         alignSelf: 'center',
-
     },
-    imageContainer: {
+        imageContainer: {
         width: hp(8),
         height: hp(8),
         top: hp(22),
@@ -32,5 +37,19 @@ export const styles = StyleSheet.create({
         marginBottom: hp(2),
         borderRadius: hp(5),
         backgroundColor: '#407eea',
+    },
+    profileInitials: {
+        color: '#000000',
+        fontFamily: "GillSans-Light",
+        fontSize: hp(3),
+        fontWeight: '500',
+        top: hp(2.5),
+        alignSelf: 'center',
+    },
+    postView: {
+        top: hp(27),
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });

@@ -42,6 +42,7 @@ export default function HomePage({ navigation, ...props }) {
     const [image, setImage] = useState(null);
     let [reviewText, updateReviewText] = useState("");
     const [database, updateDatabase] = useState([]);
+    const [scrollElement, updateScrollElement] = useState(null);
 
     let initials = props.route.params.data.full_name.split(" ");
     initials = initials[0][0] + initials[1][0];
@@ -99,6 +100,8 @@ export default function HomePage({ navigation, ...props }) {
 
             database.unshift({
                 index: i,
+                uuid: getUUID,
+                full_name:responseUUID.data.full_name,
                 username: responseUUID.data.username,
                 initials: initialsVal2,
                 date: "1/14/23",
@@ -106,9 +109,8 @@ export default function HomePage({ navigation, ...props }) {
                 description: response.data.locations[i].location_description,
                 image: response.data.locations[i].location_image,
             });
-
         }
-        
+
         await updateDatabase([...database]);
         checkIfDone = true;
     }
@@ -142,6 +144,8 @@ export default function HomePage({ navigation, ...props }) {
             await updateDatabase([
                 {
                     index: 0,
+                    uuid: postResponse.data.user_uuid,
+                    full_name: props.route.params.data.full_name,
                     username: props.route.params.data.username,
                     initials: initials,
                     date: "1/14/23",
@@ -272,13 +276,16 @@ export default function HomePage({ navigation, ...props }) {
                             return (
                                 <CreatePost
                                     index={itemData.item.index}
+                                    uuid={itemData.item.uuid}
                                     username={itemData.item.username}
+                                    full_name={itemData.item.full_name}
                                     initials={itemData.item.initials}
                                     date={itemData.item.date}
                                     location={itemData.item.location}
                                     description={itemData.item.description}
                                     image={itemData.item.image}
                                     navigation={navigation}
+                                    touchable={true}
                                 />
                             );
                         }}

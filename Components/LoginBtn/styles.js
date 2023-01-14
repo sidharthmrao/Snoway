@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     submitBtnStyle: {
-        backgroundColor: '#79a3f0',
+        backgroundColor: Color.BUTTON2,
         borderRadius: hp(5),
         width: hp(40),
         padding: hp(2),
@@ -16,7 +17,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     submitBtnTxt: {
-        color: '#ffffff',
+        color: Color.TEXTONBUTTON2,
         fontFamily: "GillSans-Light",
         fontWeight: '500',
         fontSize: hp(2),

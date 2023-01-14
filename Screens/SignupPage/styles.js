@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Color} from '../../Assets/colors.js';
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#B4D2E7',
+        backgroundColor: Color.BG1,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -12,7 +13,7 @@ export const styles = StyleSheet.create({
         top: hp(10),
     },
     emailText: {
-        backgroundColor: '#ffffff',
+        backgroundColor: Color.BUTTON1,
         padding: hp(2),
         borderRadius: hp(5),
         width: hp(40),
