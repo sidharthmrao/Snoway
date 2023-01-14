@@ -156,8 +156,10 @@ def add_location():
     args = request.get_json()
 
     try:
-        location_coords = args["location_coords"]
-        location_name = args["location_name"]
+        location_coords = {
+            "longitude": args["location_coords"]["longitude"],
+            "latitude": args["location_coords"]["latitude"],
+        }
         location_description = args["location_description"]
         location_type = args["location_type"]
         location_image = args["location_image"]
@@ -168,20 +170,28 @@ def add_location():
                    "message": "Missing required arguments."
                }, 400
 
-    location_response = user_controller.add_location(location_coords, location_name, location_description,
+    location_response = user_controller.add_location(location_coords, location_description,
                                                      location_type, location_image, user_uuid)
 
-    if location_response and location_response != "Location already exists.":
+    if location_response == "Location already exists.":
+        return {
+                   "status": "failure",
+                   "message": "Location already exists."
+               }, 400
+
+    if location_response == "User not found.":
+        return {
+                   "status": "failure",
+                   "message": "User not found."
+               }, 400
+
+    elif location_response:
         return {
                    "status": "success",
                    "message": "Location added.",
                    "uuid": location_response,
                }, 200
-    elif location_response == "Location already exists.":
-        return {
-                   "status": "failure",
-                   "message": "Location already exists."
-               }, 400
+
     else:
         return {
                    "status": "failure",
@@ -207,7 +217,6 @@ def get_location():
                    "message": "Location found.",
                    "uuid": location["uuid"],
                    "location_coords": location["location_coords"],
-                   "location_name": location["location_name"],
                    "location_description": location["location_description"],
                    "location_type": location["location_type"],
                    "location_image": location["location_image"],
@@ -377,7 +386,10 @@ def get_user_locations():
 def get_locations_in_radius():
     args = request.get_json()
     try:
-        current_coords = args["current_coords"]
+        current_coords = {
+            "longitude": args["current_coords"]["longitude"],
+            "latitude": args["current_coords"]["latitude"]
+        }
         radius = args["radius"]
     except Exception:
         return {

@@ -10,7 +10,7 @@ for i in range(20):
     payload = json.dumps({
       "username": "test_username_"+str(user_seed),
       "password": "test_password_"+str(user_seed),
-      "full_name": "test name_"+str(user_seed),
+      "full_name": "test name "+str(user_seed),
       "email": "test@email.com_"+str(user_seed),
       "city": "test_city"
     })

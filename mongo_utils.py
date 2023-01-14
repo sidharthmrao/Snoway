@@ -85,9 +85,12 @@ class MongoController:
             return user
 
     ######## LOCATION ########
-    def add_location(self, location_coords, location_name, location_description, location_type, location_image,
+    def add_location(self, location_coords, location_description, location_type, location_image,
                      user_uuid):
-        location = self.locations.find_one({"location_coords": location_coords})
+        location = self.locations.find_one({"location_coords": {
+            "longitude": location_coords["longitude"],
+            "latitude": location_coords["latitude"]
+        }})
         if location:
             return "Location already exists."
 
@@ -102,7 +105,6 @@ class MongoController:
             {
                 "uuid": location_uuid,
                 "location_coords": location_coords,
-                "location_name": location_name,
                 "location_description": location_description,
                 "location_type": location_type,
                 "location_image": location_image,
@@ -241,6 +243,11 @@ class MongoController:
 
     def get_locations_in_radius(self, current_coords, radius):
         try:
+            current_coords = {
+                "longitude": float(current_coords["longitude"]),
+                "latitude": float(current_coords["latitude"])
+            }
+
             locations = self.locations.find()
             response = {}
 
@@ -249,7 +256,6 @@ class MongoController:
                     response[num] = {
                         "uuid": location["uuid"],
                         "location_coords": location["location_coords"],
-                        "location_name": location["location_name"],
                         "location_description": location["location_description"],
                         "location_type": location["location_type"],
                         "location_image": location["location_image"],
