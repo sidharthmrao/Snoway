@@ -6,6 +6,8 @@ import {
     Image,
     TextInput,
     KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Keyboard,
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
@@ -27,36 +29,42 @@ export default function LoginPage({ navigation }) {
     }
 
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
-            <View style={styles.container}>
-                <SignupHeader message="login" />
-                <View style={styles.formInputEmail}>
-                    <TextInput
-                        placeholder="Email here..."
-                        style={styles.emailText}
-                        value={emailVal}
-                        onChangeText={updateEmailComp}
-                        autoCorrect={false}
-                        autoCapitalize="none"
-                    />
-                    <View style={{ marginTop: 20 }} />
-                    <TextInput
-                        placeholder="Password here..."
-                        style={styles.emailText}
-                        value={passwordVal}
-                        onChangeText={updatePassComp}
-                        secureTextEntry={true}
-                        autoCorrect={false}
-                        autoCapitalize="none"
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior="padding"
+                enabled
+            >
+                <View style={styles.container}>
+                    <SignupHeader message="login" />
+                    <View style={styles.formInputEmail}>
+                        <TextInput
+                            placeholder="Email here..."
+                            style={styles.emailText}
+                            value={emailVal}
+                            onChangeText={updateEmailComp}
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                        />
+                        <View style={{ marginTop: 20 }} />
+                        <TextInput
+                            placeholder="Password here..."
+                            style={styles.emailText}
+                            value={passwordVal}
+                            onChangeText={updatePassComp}
+                            secureTextEntry={true}
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                        />
+                    </View>
+                    <LoginBtn
+                        message="Log In"
+                        email={emailVal}
+                        password={passwordVal}
+                        navigation={navigation}
                     />
                 </View>
-                <LoginBtn
-                    message="Log In"
-                    email={emailVal}
-                    password={passwordVal}
-                    navigation={navigation}
-                />
-            </View>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 }

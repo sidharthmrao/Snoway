@@ -11,8 +11,8 @@ export async function signupReq(name, email, username, password, city) {
         try {
             const response = await axios({
                 method: 'POST',
-                //http://10.207.210.94:5000/signup
-                url: "http://10.207.210.94:5000/signup",
+                //http://10.207.210.94:5001/signup
+                url: "http://10.207.210.94:5001/signup",
                 headers: {
                     'Content-Type': 'application/json',
                 },

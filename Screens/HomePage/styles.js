@@ -155,7 +155,7 @@ export const styles = StyleSheet.create({
         borderRadius: 5,
         padding: hp(1),
         fontFamily: "GillSans-Light",
-        fontSize: hp(1.8),
+        fontSize: hp(2),
         textAlign: 'left',
         fontWeight: '500',
         top: hp(12),

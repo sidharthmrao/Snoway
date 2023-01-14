@@ -12,24 +12,32 @@ import {
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+import { styles } from "./styles.js";
+
 export default function Settings({ navigation, ...props }) {
     return (
-
         <View style={styles.container}>
-            <View style={styles.bottomBar}>
-                <TouchableOpacity>
-                    <View style={styles.profileBox}>
-                        <Text style={styles.profileBoxInitials}>
-                            {initials}
-                        </Text>
+            <View style={styles.topBar}>
+                <View style={styles.upperContainer}>
+                    <View style={styles.backButton}>
+                        <TouchableOpacity style={styles.backButtonCover}
+                            onPress={() => {
+                                navigation.navigate("homepage", {
+                                    data: props.route.params.data,
+                                });
+                            }}
+                        >
+                            <Text style={styles.backEmoji}>⇦</Text>
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <View style={styles.settingsBox}>
-                        <Text style={styles.gearEmoji}>⚙️</Text>
+                    <View style={styles.settingsTextBox}> 
+                        <Text style={styles.settingsText}>Settings</Text>
                     </View>
-                </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.list}>
+                
             </View>
         </View>
-    )
+    );
 }

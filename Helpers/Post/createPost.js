@@ -11,7 +11,7 @@ export async function createPost(location_coords, location_description, location
         try {
             const response = await axios({
                 method: 'POST',
-                url: "http://10.207.210.94:5000/add_location",
+                url: "http://10.207.210.94:5001/add_location",
                 headers: {
                     'Content-Type': 'application/json',
                 },

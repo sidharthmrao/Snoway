@@ -47,6 +47,11 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: hp(2),
         padding: hp(1),
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        marginHorizontal: hp(2),
+        top: hp(2)
     },
     seperateBottom: {
         paddingBottom: hp(2),
