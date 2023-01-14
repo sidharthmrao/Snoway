@@ -1,5 +1,8 @@
 import googlemaps
 from datetime import datetime
+import keys.config
+
+print(api_k)
 
 gmaps = googlemaps.Client(key='')
 
