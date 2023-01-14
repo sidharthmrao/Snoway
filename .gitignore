@@ -11,9 +11,7 @@ npm-debug.*
 .idea
 .vscode
 web-build/
-
-#API Key
-config.py
+keys/
 
 # macOS
 .DS_Store
