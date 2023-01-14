@@ -114,7 +114,6 @@ def get_user_data():
                    "uuid": user["uuid"],
                    "username": user["username"],
                    "full_name": user["full_name"],
-                   "email": user["email"],
                    "bio": user["bio"],
                    "city": user["city"],
                    "reviews": user["reviews"],

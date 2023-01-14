@@ -1,3 +1,5 @@
+import math
+
 import pymongo
 import uuid
 from flask import json
@@ -120,6 +122,7 @@ class MongoController:
                 "location_type": location_type,
                 "location_image": location_image,
                 "user_uuid": user_uuid,
+                "location_review_average": 0,
                 "location_reviews": []
             }
         )
@@ -201,6 +204,7 @@ class MongoController:
                         "user_uuid": review["user_uuid"],
                         "review_description": review["review_description"],
                         "review_rating": review["review_rating"],
+                        "location_review_average": location["location_review_average"]
                     }
 
             return response
@@ -221,7 +225,7 @@ class MongoController:
                         "location_uuid": review["location_uuid"],
                         "user_uuid": review["user_uuid"],
                         "review_description": review["review_description"],
-                        "review_rating": review["review_rating"],
+                        "location_review_average": review["location_review_average"],
                     }
 
             return response
@@ -246,7 +250,8 @@ class MongoController:
                         "location_type": location["location_type"],
                         "location_image": location["location_image"],
                         "user_uuid": location["user_uuid"],
-                        "location_reviews": location["location_reviews"]
+                        "location_reviews": location["location_reviews"],
+                        "location_review_average": location["location_review_average"]
                     }
 
             return response
@@ -254,6 +259,8 @@ class MongoController:
             return None
 
     def get_locations_in_radius(self, current_coords, radius: str):  # radius in miles
+        radius = float(radius)
+
         current_coords = {
             "longitude": float(current_coords["longitude"]),
             "latitude": float(current_coords["latitude"])
@@ -268,20 +275,41 @@ class MongoController:
 
         for num, location in enumerate(locations):
             if location:
-                location_distance_matrix = self.gmap_controller.within_radius(current_address,
-                                                                              location.get("location_address"),
-                                                                              float(radius))
-                if location_distance_matrix:
-                    response.append({
-                        "uuid": location["uuid"],
-                        "location_coords": location["location_coords"],
-                        "location_address": location["location_address"],
-                        "location_type": location["location_type"],
-                        "location_image": location["location_image"],
-                        "user_uuid": location["user_uuid"],
-                        "location_reviews": location["location_reviews"],
-                        "travel_time": location_distance_matrix["duration"],
-                        "travel_distance": location_distance_matrix["distance"],
-                    })
+                location_raw_coords = {
+                    "longitude": float(location["location_coords"]["longitude"]),
+                    "latitude": float(location["location_coords"]["latitude"])
+                }
 
-        return response if response else None
+                R = 6371 * (10 ** 3)
+                phi1 = math.radians(current_coords["latitude"])
+                phi2 = math.radians(location_raw_coords["latitude"])
+                delta_phi = math.radians(location_raw_coords["latitude"] - current_coords["latitude"])
+                delta_lambda = math.radians(location_raw_coords["longitude"] - current_coords["longitude"])
+
+                a = math.sin(delta_phi / 2) * math.sin(delta_phi / 2) * math.cos(phi1) * math.cos(phi2) * math.sin(
+                    delta_lambda / 2) * math.sin(delta_lambda / 2)
+
+                c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+                d = R * c
+
+                if d <= (radius * 1609.34):
+
+                    location_distance_matrix = self.gmap_controller.within_radius(current_address,
+                                                                                  location.get("location_address"),
+                                                                                  radius)
+                    if location_distance_matrix:
+                        response.append({
+                            "uuid": location["uuid"],
+                            "location_coords": location["location_coords"],
+                            "location_address": location["location_address"],
+                            "location_description": location["location_description"],
+                            "location_type": location["location_type"],
+                            "location_image": location["location_image"],
+                            "location_review_average": location["location_review_average"],
+                            "user_uuid": location["user_uuid"],
+                            "location_reviews": location["location_reviews"],
+                            "travel_time": location_distance_matrix["duration"],
+                            "travel_distance": location_distance_matrix["distance"],
+                        })
+
+        return response if (response or response == []) else None
