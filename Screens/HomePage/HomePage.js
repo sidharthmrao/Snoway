@@ -12,7 +12,6 @@ import * as ImagePicker from "expo-image-picker"; // not react-image-picker
 
 import CreatePost from "../../Components/CreatePost/CreatePost.js";
 
-import { GenBase64 } from "../../Helpers/Image/base64.js"
 import { styles } from "./styles.js";
 
 //props.route.params.data
@@ -25,6 +24,10 @@ export default function HomePage({ navigation, ...props }) {
         setModalVisible(true);
     }
 
+    function closeModalFunc() {
+        setModalVisible(false);
+    }
+
     async function showPhotoOnClick() {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -34,11 +37,14 @@ export default function HomePage({ navigation, ...props }) {
             base64: true,
         });
 
-        console.log(result.assets[0].uri)
-
         if (!result.canceled) {
             setImage(result.assets[0].uri);
-            console.log(result.assets[0].base64)
+
+            if (result.assets[0].base64) {
+                setImage(result.assets[0].base64);
+            } else {
+                alert("Please select a different image");
+            }
         }
     }
 
@@ -89,7 +95,17 @@ export default function HomePage({ navigation, ...props }) {
                         style={styles.uploadImage}
                         onPress={showPhotoOnClick}
                     >
-                        <Text style={styles.postText}>Upload Photo</Text>
+                        <Text style={styles.uploadText}>Upload Photo</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.postButton}>
+                        <Text style={styles.uploadText}>Post Review</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.closeModal}
+                        onPress={closeModalFunc}
+                    >
+                        <Text style={styles.deleteText}>Delete</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>
