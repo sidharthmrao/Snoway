@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         width: hp(40),
         height: hp(43),
         borderRadius: hp(5),
-        backgroundColor: '#e2e2e2',
+        backgroundColor: Color.BG3,
     },
     pfpContainer: {
         width: hp(5),
@@ -16,10 +16,10 @@ export const styles = StyleSheet.create({
         left: hp(2),
         marginBottom: hp(2),
         borderRadius: hp(5),
-        backgroundColor: '#407eea',
+        backgroundColor: Color.BG2,
     },
     pfpInitials: {
-        color: '#e2e2e2',
+        color: Color.TEXTONBUTTON2,
         fontFamily: "GillSans-Light",
         fontWeight: '500',
         fontSize: hp(2),
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         width: wp(50),
     },
     seperateComp: {
-        borderBottomColor: 'black',
+        borderBottomColor: Color.BG1,
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     postText: {
@@ -52,7 +52,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         marginHorizontal: hp(2),
-        top: hp(2)
+        top: hp(2),
+        color: Color.TEXTONBG3,
     },
     seperateBottom: {
         paddingBottom: hp(2),
@@ -76,6 +77,6 @@ export const styles = StyleSheet.create({
         fontFamily: "GillSans-Light",
         fontWeight: '500',
         fontSize: hp(1.5),
-        color: '#c6cad0',
+        color: Color.GREYONBG3,
     }
 });

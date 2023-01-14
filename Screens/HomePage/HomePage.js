@@ -286,6 +286,7 @@ export default function HomePage({ navigation, ...props }) {
                                     image={itemData.item.image}
                                     navigation={navigation}
                                     touchable={true}
+                                    homeProps={props.route.params.data}
                                 />
                             );
                         }}

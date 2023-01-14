@@ -51,5 +51,24 @@ export const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    backButton: {
+        top: hp(-10),
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: '#ffffff',
+        padding: hp(2),
+        width: hp(15),
+        borderRadius: hp(5),
+    },
+    buttonText: {
+        color: '#023CAA',
+        fontFamily: "GillSans-Light",
+        fontWeight: '500',
+        fontSize: hp(2),
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
     }
 });

@@ -22,7 +22,7 @@ export default function Profile({ navigation, ...props }) {
     let [database, updateDatabase] = useState([]);
 
     console.log(props.route.params.data);
-    
+
     let uuid = props.route.params.data.uuid;
     let checkIfDone = false;
 
@@ -97,6 +97,11 @@ export default function Profile({ navigation, ...props }) {
                     />
                 </View>
             </View>
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("homepage", {
+                data: props.route.params.homeProps
+            })}>
+                <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
         </View>
     );
 }

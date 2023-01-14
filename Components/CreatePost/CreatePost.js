@@ -56,7 +56,8 @@ export default function CreatePost({ navigation, ...props }) {
                                         username: props.username,
                                         full_name: props.full_name,
                                         uuid: props.uuid,
-                                    }
+                                    },
+                                    homeProps: props.homeProps,
                                 });
                             }}
                         >
