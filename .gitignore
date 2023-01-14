@@ -12,5 +12,8 @@ npm-debug.*
 .vscode
 web-build/
 
+#API Key
+config.py
+
 # macOS
 .DS_Store
