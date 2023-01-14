@@ -8,11 +8,13 @@
         "**/Thumbs.db": true,
         ".vscode": true,
         "node_modules": true,
-        ".expo": true
+        ".expo": true,
+        "": true
     },
     "hide-files.files": [
         ".vscode",
         "node_modules",
-        ".expo"
+        ".expo",
+        ""
     ]
 }
