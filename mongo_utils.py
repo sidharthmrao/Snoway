@@ -33,11 +33,14 @@ class MongoController:
                 "reviews": [],
                 "locations": [],
                 "city": city,
+                "picture": "",
                 "uuid": user_uuid
             }
         )
 
-        return user_uuid
+        return self.users.find_one(
+            {"uuid": user_uuid}
+        )
 
     def get_user(self, user_uuid: str):
         user = self.users.find_one(
@@ -122,8 +125,7 @@ class MongoController:
 
         return location
 
-    def add_review(self, location_uuid: str, user_uuid: str, review_description: str, review_rating: str,
-                   picture: str) -> object:
+    def add_review(self, location_uuid: str, user_uuid: str, review_description: str, review_rating: str) -> object:
         review_uuid = str(uuid.uuid4())
 
         description = {
@@ -132,7 +134,6 @@ class MongoController:
             "review_rating": review_rating,
             "user_uuid": user_uuid,
             "location_uuid": location_uuid,
-            "picture": picture
         }
 
         location = self.locations.find_one({"uuid": location_uuid})
@@ -187,7 +188,6 @@ class MongoController:
                         "user_uuid": review["user_uuid"],
                         "review_description": review["review_description"],
                         "review_rating": review["review_rating"],
-                        "picture": review["picture"]
                     }
 
             return response
@@ -209,7 +209,6 @@ class MongoController:
                         "user_uuid": review["user_uuid"],
                         "review_description": review["review_description"],
                         "review_rating": review["review_rating"],
-                        "picture": review["picture"]
                     }
 
             return response

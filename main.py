@@ -31,7 +31,8 @@ def login():
                    "bio": user["bio"],
                    "city": user["city"],
                    "reviews": user["reviews"],
-                   "locations": user["locations"]
+                   "locations": user["locations"],
+                   "picture": user["picture"]
                }, 200
     else:
         return {
@@ -71,10 +72,18 @@ def sign_up():
                    }, 400
         else:
             return {
-                       "status": "success",
-                       "message": "Successfully signed up.",
-                       "uuid": user_resp,
-                   }, 200
+                   "status": "success",
+                   "message": "User found.",
+                   "uuid": user_resp["uuid"],
+                   "username": user_resp["username"],
+                   "full_name": user_resp["full_name"],
+                   "email": user_resp["email"],
+                   "bio": user_resp["bio"],
+                   "city": user_resp["city"],
+                   "reviews": user_resp["reviews"],
+                   "locations": user_resp["locations"],
+                   "picture": user_resp["picture"]
+               }, 200
 
     except Exception as e:
         return {
@@ -107,7 +116,8 @@ def get_user_data():
                    "bio": user["bio"],
                    "city": user["city"],
                    "reviews": user["reviews"],
-                   "locations": user["locations"]
+                   "locations": user["locations"],
+                   "picture": user["picture"]
                }, 200
     else:
         return {
@@ -220,14 +230,13 @@ def add_review():
         user_uuid = args["user_uuid"]
         review_description = args["review_description"]
         review_rating = args["review_rating"]
-        picture = args["picture"]
     except Exception as e:
         return {
                    "status": "failure",
                    "message": "Missing required arguments."
                }, 400
 
-    review_response = user_controller.add_review(location_uuid, user_uuid, review_description, review_rating, picture)
+    review_response = user_controller.add_review(location_uuid, user_uuid, review_description, review_rating)
 
     if review_response == "Location not found.":
         return {
@@ -277,8 +286,7 @@ def get_review():
                    "location_uuid": review["location_uuid"],
                    "user_uuid": review["user_uuid"],
                    "review_description": review["review_description"],
-                   "review_rating": review["review_rating"],
-                   "picture": review["picture"]
+                   "review_rating": review["review_rating"]
                }, 200
     else:
         return {
@@ -312,6 +320,7 @@ def get_location_reviews():
                    "message": "Fatal error."
                }, 401
 
+
 @app.route("/get_user_reviews", methods=["POST"])
 def get_user_reviews():
     args = request.get_json()
@@ -337,12 +346,13 @@ def get_user_reviews():
                    "message": "Fatal error."
                }, 401
 
+
 @app.route("/get_user_locations", methods=["POST"])
 def get_user_locations():
     args = request.get_json()
     try:
         user_uuid = args["uuid"]
-    except Exception as e:
+    except Exception:
         return {
                    "status": "failure",
                    "message": "Missing required arguments."

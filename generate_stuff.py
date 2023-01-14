@@ -43,7 +43,6 @@ for i in range(20):
       "user_uuid": user.json()["uuid"],
       "review_description": "Nice spot for sledding, I especially like the wintry trees.",
       "review_rating": choice("positive, negative"),
-      "picture": "B64IMAGE"
     })
     headers = {
       'Content-Type': 'application/json'
@@ -74,10 +73,11 @@ for i in range(20):
       "user_uuid": user.json()["uuid"],
       "review_description": "Nice spot for sledding, I especially like the wintry trees.",
       "review_rating": choice("positive, negative"),
-      "picture": "B64IMAGE"
     })
     headers = {
       'Content-Type': 'application/json'
     }
 
     review = requests.request("POST", url, headers=headers, data=payload)
+
+    print("Done with user "+str(i))
