@@ -9,7 +9,8 @@ export async function loginReq(email, password) {
     try {
         const response = await axios({
             method: 'POST',
-            url: "http://10.207.210.94:5000/login",
+            //http://10.207.210.94:5000/login
+            url: "http:/10.206.202.123:8091/login",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -29,6 +30,7 @@ export async function loginReq(email, password) {
         }
 
     } catch (error) {
+        console.log(error)
         alert("Error logging in")
     }
 
