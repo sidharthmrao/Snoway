@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import { styles } from "./styles.js";
 
-import LogOrSign from "../../Components/LogOrSign.js";
+import LogOrSign from "../../Components/LogOrSign/LogOrSign.js";
 
 export default function HelloScreen({ navigation }) {
     return (
