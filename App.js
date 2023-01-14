@@ -6,6 +6,7 @@ import HelloScreen from "./Screens/HelloScreen/HelloScreen.js";
 import LoginPage from "./Screens/LoginPage/LoginPage.js";
 import SignupPage from "./Screens/SignupPage/SignupPage.js";
 import HomePage from "./Screens/HomePage/HomePage.js";
+import Settings from "./Screens/Settings/Settings.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="login" component={LoginPage} />
         <Stack.Screen name="signup" component={SignupPage} />
         <Stack.Screen name="homepage" component={HomePage} />
+        <Stack.Screen name="settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );
