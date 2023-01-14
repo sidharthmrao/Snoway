@@ -371,3 +371,30 @@ def get_user_locations():
                    "status": "failure",
                    "message": "Fatal error."
                }, 401
+
+
+@app.route("/get_locations_in_radius", methods=["POST"])
+def get_locations_in_radius():
+    args = request.get_json()
+    try:
+        current_coords = args["current_coords"]
+        radius = args["radius"]
+    except Exception:
+        return {
+                   "status": "failure",
+                   "message": "Missing required arguments."
+               }, 400
+
+    locations = user_controller.get_locations_in_radius(current_coords, radius)
+
+    if locations:
+        return {
+                   "status": "success",
+                   "message": "Locations found.",
+                   "locations": locations
+               }, 200
+    else:
+        return {
+                   "status": "failure",
+                   "message": "Fatal error."
+               }, 401

@@ -238,3 +238,25 @@ class MongoController:
             return response
         except:
             return None
+
+    def get_locations_in_radius(self, current_coords, radius):
+        try:
+            locations = self.locations.find()
+            response = {}
+
+            for num, location in enumerate(locations):
+                if location:
+                    response[num] = {
+                        "uuid": location["uuid"],
+                        "location_coords": location["location_coords"],
+                        "location_name": location["location_name"],
+                        "location_description": location["location_description"],
+                        "location_type": location["location_type"],
+                        "location_image": location["location_image"],
+                        "user_uuid": location["user_uuid"],
+                        "location_reviews": location["location_reviews"]
+                    }
+
+            return response
+        except:
+            return None
