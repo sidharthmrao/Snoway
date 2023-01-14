@@ -18,7 +18,7 @@ export default function Profile({ navigation, ...props }) {
         <View style={styles.container}>
             <View style={styles.upperContainerWhite}>
                 <View style={styles.imageContainer}>
-                    
+                    <Text>{props.route.params.data.first_name}</Text>
                 </View>
                 <Text style={styles.usernameText}>
                     {props.route.params.data.username.charAt(0).toUpperCase() +

@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         top: hp(0),
         width: wp(100),
         height: hp(20),
-        // borderRadius: hp(5),
+        borderRadius: hp(5),
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     },
     postView: {
         flex: 1,
-        top: hp(5),
+        top: hp(6.5),
     },
     buttonPost: {
         marginTop: hp(2),
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
         width: wp(100),
         height: hp(12),
         paddingTop: hp(1),
-        // borderRadius: hp(5),
+        borderRadius: hp(1),
     },
     profileBox: {
         width: hp(8),

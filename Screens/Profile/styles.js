@@ -19,9 +19,18 @@ export const styles = StyleSheet.create({
         color: '#023CAA',
         fontFamily: "GillSans-Light",
         fontWeight: '500',
-        fontSize: hp(2),
-        top: hp(40),
+        fontSize: hp(3),
+        top: hp(20),
         alignSelf: 'center',
 
+    },
+    imageContainer: {
+        width: hp(8),
+        height: hp(8),
+        top: hp(22),
+        left: hp(4),
+        marginBottom: hp(2),
+        borderRadius: hp(5),
+        backgroundColor: '#407eea',
     }
 });

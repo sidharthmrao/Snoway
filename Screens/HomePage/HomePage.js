@@ -22,9 +22,6 @@ import { getPost } from "../../Helpers/Post/getPost.js";
 import { createPost } from "../../Helpers/Post/createPost.js";
 import { styles } from "./styles.js";
 
-let googleAPI = true;
-
-
 //props.route.params.data
 
 /*
@@ -40,19 +37,19 @@ let googleAPI = true;
     "uuid": "aa71ac96-d916-4793-9f90-b0e10acacce2"}
 */
 
-let checkIfDone = false
-
 export default function HomePage({ navigation, ...props }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
     let [reviewText, updateReviewText] = useState("");
     const [database, updateDatabase] = useState([]);
-    
+
     let initials = props.route.params.data.full_name.split(" ");
     initials = initials[0][0] + initials[1][0];
 
-    async function getLocation() {
+    let googleAPI = true;
+    let checkIfDone = false;
 
+    async function getLocation() {
         let { status } = await Location.requestForegroundPermissionsAsync();
 
         if (status !== "granted") {
@@ -65,58 +62,55 @@ export default function HomePage({ navigation, ...props }) {
         });
 
         return locationData;
-    };
+    }
 
-    if(googleAPI) {
+    if (googleAPI) {
         getRealLocationHandler();
         googleAPI = false;
     }
 
     async function getRealLocationHandler() {
         while (JSON.stringify(database) === "[]" && checkIfDone == false) {
-            console.log(database)
-            console.log("Homepage line 75")
+            console.log(database);
+            console.log("Homepage line 75");
             await getAllPostsReq();
         }
-        console.log("Done")
-   }
+        console.log("Done");
+    }
 
     async function getAllPostsReq() {
-
-
         const realLocation = await getLocation();
 
         let location_coords = {
-            "latitude": JSON.stringify(realLocation.coords.latitude),
-            "longitude": JSON.stringify(realLocation.coords.longitude),
+            latitude: JSON.stringify(realLocation.coords.latitude),
+            longitude: JSON.stringify(realLocation.coords.longitude),
         };
 
-        console.log("Homepage line 91")
+        console.log("Homepage line 91");
         const response = await getAllPosts(location_coords);
-        
-        for(let i = 0; i < response.data.locations.length; i++) {
 
+        for (let i = 0; i < response.data.locations.length; i++) {
             let getUUID = response.data.locations[i].user_uuid;
 
             let responseUUID = await getProfile(getUUID);
-            
+
             let initialsVal2 = responseUUID.data.full_name.split(" ");
             initialsVal2 = initialsVal2[0][0] + initialsVal2[1][0];
 
-            await updateDatabase([
-                {
-                    index: i,
-                    username: responseUUID.data.username,
-                    initials: initialsVal2,
-                    date: "1/14/23",
-                    location: response.data.locations[i].location_address,
-                    description: response.data.locations[i].location_description,
-                    image: response.data.locations[i].location_image,
-                },
-                ...database,
-            ]);
-            checkIfDone = true;
+            database.unshift({
+                index: i,
+                username: responseUUID.data.username,
+                initials: initialsVal2,
+                date: "1/14/23",
+                location: response.data.locations[i].location_address,
+                description: response.data.locations[i].location_description,
+                image: response.data.locations[i].location_image,
+            });
+
         }
+        
+        await updateDatabase([...database]);
+        checkIfDone = true;
     }
 
     function updateReviewTextBtn(eneteredText) {
@@ -124,12 +118,11 @@ export default function HomePage({ navigation, ...props }) {
     }
 
     async function createPostSendReq() {
-
         const realLocation = await getLocation();
 
         let location_coords = {
-            "latitude": JSON.stringify(realLocation.coords.latitude),
-            "longitude": JSON.stringify(realLocation.coords.longitude),
+            latitude: JSON.stringify(realLocation.coords.latitude),
+            longitude: JSON.stringify(realLocation.coords.longitude),
         };
 
         reviewText = await reviewText.trim();
