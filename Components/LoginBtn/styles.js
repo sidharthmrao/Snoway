@@ -9,12 +9,10 @@ export const styles = StyleSheet.create({
         padding: hp(2),
         alignItems: 'center',
         top: hp(-24),
-        left: hp(-8),
         width: hp(20),
     },
     submitBtnContainer: {
         top: hp(15),
-        left: hp(7),
         alignItems: 'center',
     },
     submitBtnTxt: {
