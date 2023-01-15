@@ -231,7 +231,7 @@ def get_location():
                    "location_type": location["location_type"],
                    "location_image": location["location_image"],
                    "location_reviews": location["location_reviews"],
-                   "location_review_average": location["location_review_average"],
+                   "location_review_average": int(float(location["location_review_average"])*100),
                    "user_uuid": location["user_uuid"]
                }, 200
     else:
