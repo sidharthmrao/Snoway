@@ -8,7 +8,7 @@ from flask import json
 class MongoController:
     def __init__(self, gmap_controller):
         self.client = pymongo.MongoClient(
-            "mongodb+srv://snowday:snowday@snowday.nktu0z5.mongodb.net/?retryWrites=true&w=majority", connect=True)
+            "mongodb+srv://snowday:snowday@snowday.nktu0z5.mongodb.net/?retryWrites=true&w=majority", connect=True) # This is a randomly generated and inactive mongo server.
         self.gmap_controller = gmap_controller
         self.db = self.client["SnowDay"]
         self.users = self.db["Users"]
