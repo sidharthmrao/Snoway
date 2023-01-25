@@ -1,3 +1,4 @@
+env/*
 node_modules/
 .expo/
 dist/
@@ -8,6 +9,8 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+.idea
+.vscode
 web-build/
 
 # macOS
